@@ -1,12 +1,14 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <a class="btn btn-primary" href="#" role="button">Create Group</a>
-        </div>    
-    </div>
-    <br>
+    @auth
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <a class="btn btn-primary" href="#" role="button">Create Group</a>
+            </div>    
+        </div>
+        <br>
+    @endauth
     @foreach ($groups as $group)
         <div class="row justify-content-center">
             <div class="col-4">
@@ -18,8 +20,12 @@
                 </div>
             </div>
             <div class="col-2 align-self-center">
-                <a class="btn btn-success" href="#" role="button">Edit</a>
-                <a class="btn btn-danger" href="#" role="button">Delete</a>
+                @if (Auth::user())
+                    @if ($group->user_id == Auth::user()->id)
+                        <a class="btn btn-success" href="#" role="button">Edit</a>
+                        <a class="btn btn-danger" href="#" role="button">Delete</a>
+                    @endif
+                @endif
             </div>            
         </div>        
         @if(!$loop->last)
