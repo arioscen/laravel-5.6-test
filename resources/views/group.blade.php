@@ -23,7 +23,11 @@
                 @auth
                     @if ($group->user_id == Auth::user()->id)
                         <a class="btn btn-success" href="{{ url('user/groups/'.$group->id.'/edit') }}" role="button">Edit</a>
-                        <a class="btn btn-danger" href="#" role="button">Delete</a>
+                        <form action="{{ url('user/groups/'.$group->id) }}" method="POST" style="display: inline;">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>                        
                     @endif
                 @endauth
             </div>            

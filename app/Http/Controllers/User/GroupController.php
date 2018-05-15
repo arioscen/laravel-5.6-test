@@ -54,5 +54,10 @@ class GroupController extends Controller
         } else {
             return redirect()->back()->withInput()->withErrors('Edit Group Failed!');
         }               
-    }     
+    }
+    public function destroy($id)
+    {
+        Group::find($id)->delete();
+        return redirect()->back()->withInput()->withErrors('Delete Group Success!');
+    }       
 }
