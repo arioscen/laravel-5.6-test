@@ -22,7 +22,7 @@
             <div class="col-2 align-self-center">
                 @auth
                     @if ($group->user_id == Auth::user()->id)
-                        <a class="btn btn-success" href="#" role="button">Edit</a>
+                        <a class="btn btn-success" href="{{ url('user/groups/'.$group->id.'/edit') }}" role="button">Edit</a>
                         <a class="btn btn-danger" href="#" role="button">Delete</a>
                     @endif
                 @endauth

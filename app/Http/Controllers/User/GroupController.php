@@ -34,5 +34,25 @@ class GroupController extends Controller
         } else {
             return redirect()->back()->withInput()->withErrors('Create Group Failed!');
         }
-    }    
+    }
+    public function edit($id)
+    {
+        return view('user/group/edit')->withGroup(Group::find($id));
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required|unique:groups,title,'.$id.'|max:32',
+            'description' => 'required',
+        ]);
+        $group = Group::find($id);
+        $group->title = $request->get('title');
+        $group->description = $request->get('description'); 
+        
+        if ($group->save()) {
+            return redirect('user/groups')->with('status', 'Edit Group Success!');
+        } else {
+            return redirect()->back()->withInput()->withErrors('Edit Group Failed!');
+        }               
+    }     
 }
