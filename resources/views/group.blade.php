@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @section('content')
     @auth
         <div class="row justify-content-center">
             <div class="col-6">
-                <a class="btn btn-primary" href="#" role="button">Create Group</a>
+                <a class="btn btn-primary" href="{{ url('user/groups/create') }}" role="button">Create Group</a>
             </div>    
         </div>
         <br>
@@ -20,12 +20,12 @@
                 </div>
             </div>
             <div class="col-2 align-self-center">
-                @if (Auth::user())
+                @auth
                     @if ($group->user_id == Auth::user()->id)
                         <a class="btn btn-success" href="#" role="button">Edit</a>
                         <a class="btn btn-danger" href="#" role="button">Delete</a>
                     @endif
-                @endif
+                @endauth
             </div>            
         </div>        
         @if(!$loop->last)
