@@ -35,9 +35,15 @@ class GroupController extends Controller
             return redirect()->back()->withInput()->withErrors('Create Group Failed!');
         }
     }
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        return view('user/group/edit')->withGroup(Group::find($id));
+        $group = Group::find($id);
+        if ($group->user_id == $request->user()->id) {
+            return view('user/group/edit')->withGroup($group);
+        } else {
+            return redirect()->back()->withInput()->withErrors('You do not have permission to edit this group!');
+        }
+        
     }
     public function update(Request $request, $id)
     {
