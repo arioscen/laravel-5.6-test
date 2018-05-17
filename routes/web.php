@@ -24,5 +24,6 @@ Route::resource('groups', 'GroupController');
 Route::group(['middleware' => 'auth', 'namespace' => 'User', 'prefix' => 'user'], function() {
     Route::get('/', 'HomeController@index');
     Route::resource('groups', 'GroupController');
+    Route::post('groups/join', 'GroupController@join');
     Route::resource('posts', 'PostController');
 });

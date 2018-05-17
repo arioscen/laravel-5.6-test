@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Group;
+use \Illuminate\Database\QueryException;
 
 class GroupController extends Controller
 {
@@ -68,5 +69,23 @@ class GroupController extends Controller
     public function show($id)
     {
         return view('group/show')->withGroup(Group::with('posts')->find($id));
+    }
+    public function join(Request $request)
+    {
+        $group = Group::find($request->get('group_id'));
+        if ($group && $request->user()->id == $request->get('user_id')) {
+            try {
+                $group->users()->attach($request->get('user_id'));
+            } catch (QueryException $e) {
+                return redirect()->back()->withInput()->withErrors('You already in this group!');
+            }            
+            return redirect('groups/'.$group->id)->with('status', 'Join Group Success!');
+        } else {
+            return redirect()->back()->withInput()->withErrors('You do not have permission!');
+        }
+    }
+    public function leave($id)
+    {
+        
     }    
 }
