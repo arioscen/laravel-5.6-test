@@ -45,7 +45,7 @@ class PostController extends Controller
     public function edit(Request $request, $id)
     {
         $post = Post::find($id);
-        if ($post->user_id == $request->user()->id) {
+        if ($post->user_id == $request->user()->id || DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count()) {
             return view('user/post/edit')->withPost($post);
         } else {
             return redirect()->back()->withInput()->withErrors('You do not have permission to edit this post!');
@@ -54,7 +54,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
-        if ($post->user_id == $request->user()->id) {
+        if ($post->user_id == $request->user()->id || DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count()) {
             $this->validate($request, [
                 'title' => 'required|max:32',
                 'content' => 'required',
@@ -75,11 +75,11 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         $post = Post::find($id);
-        if ($post->user_id == $request->user()->id) {
+        if ($post->user_id == $request->user()->id || DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count()) {
             $post->delete();
             return redirect()->back()->withInput()->withErrors('Post Deleted!');
         } else {
-            return redirect()->back()->withInput()->withErrors('You do not have permission to edit this post!');
+            return redirect()->back()->withInput()->withErrors('You do not have permission to delete this post!');
         }
     }                
 }
