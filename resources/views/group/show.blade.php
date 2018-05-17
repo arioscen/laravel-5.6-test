@@ -16,7 +16,8 @@
                         <input hidden name="group_id" value="{{ $group->id }}">
                         <input hidden name="user_id" value="{{ Auth::user()->id }}">
                         <button type="submit" class="btn btn-warning">Leave Group</button>
-                    </form>                
+                    </form>
+                    <a class="btn btn-primary" href="{{ url('user/posts/create').'?group_id='.$group->id }}" role="button">Create post</a>     
                 @else
                     <form action="{{ url('user/groups/join') }}" method="POST" style="display: inline;">
                         {{ csrf_field() }}
@@ -25,7 +26,6 @@
                         <button type="submit" class="btn btn-success">Join Group</button>
                     </form>
                 @endif                
-                <a class="btn btn-primary" href="{{ url('user/posts/create').'?group_id='.$group->id }}" role="button">Create post</a>
             </div>                   
         </div>
         <br>

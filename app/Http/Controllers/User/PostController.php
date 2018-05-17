@@ -4,13 +4,19 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Group;
 use App\Post;
+use DB;
 
 class PostController extends Controller
 {
     public function create(Request $request)
     {
-        return view('user/post/create')->with('group_id', $request->group_id);
+        if (DB::table('group_user')->whereGroupId($request->group_id)->whereUserId($request->user()->id)->count()) {
+            return view('user/post/create')->with('group_id', $request->group_id);
+        } else {
+            return redirect()->back()->withInput()->withErrors('You are not in this group!');
+        }        
     }
     public function store(Request $request)
     {
