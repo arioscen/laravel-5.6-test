@@ -31,6 +31,7 @@ class GroupController extends Controller
         $group->user_id = $request->user()->id;
     
         if ($group->save()) {
+            $group->users()->attach($request->user()->id);
             return redirect('user/groups')->with('status', 'Create Group Success!');
         } else {
             return redirect()->back()->withInput()->withErrors('Create Group Failed!');
