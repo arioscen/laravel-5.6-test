@@ -16,18 +16,18 @@
         <div class="row justify-content-center">
             <div class="col-6 align-self-center">
                 @if (DB::table('group_user')->whereGroupId($group->id)->whereUserId(Auth::user()->id)->count())
-                    <form action="{{ url('user/groups/leave') }}" method="POST" style="display: inline;">
-                        {{ csrf_field() }}
-                        <input hidden name="group_id" value="{{ $group->id }}">
-                        <input hidden name="user_id" value="{{ Auth::user()->id }}">
-                        <button type="submit" class="btn btn-warning">Leave Group</button>
-                    </form>
+                    @if ($group->user_id != Auth::user()->id)
+                        <form action="{{ url('user/groups/leave') }}" method="POST" style="display: inline;">
+                            {{ csrf_field() }}
+                            <input hidden name="group_id" value="{{ $group->id }}">
+                            <button type="submit" class="btn btn-warning">Leave Group</button>
+                        </form>
+                    @endif
                     <a class="btn btn-primary" href="{{ url('user/posts/create').'?group_id='.$group->id }}" role="button">Create post</a>     
                 @else
                     <form action="{{ url('user/groups/join') }}" method="POST" style="display: inline;">
                         {{ csrf_field() }}
                         <input hidden name="group_id" value="{{ $group->id }}">
-                        <input hidden name="user_id" value="{{ Auth::user()->id }}">
                         <button type="submit" class="btn btn-success">Join Group</button>
                     </form>
                 @endif                

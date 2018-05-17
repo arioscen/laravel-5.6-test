@@ -83,9 +83,9 @@ class GroupController extends Controller
     public function join(Request $request)
     {
         $group = Group::find($request->get('group_id'));
-        if ($group && $request->user()->id == $request->get('user_id')) {
+        if ($group) {
             try {
-                $group->users()->attach($request->get('user_id'));
+                $group->users()->attach($request->user()->id);
             } catch (QueryException $e) {
                 return redirect()->back()->withInput()->withErrors('You already in this group!');
             }            
@@ -97,8 +97,8 @@ class GroupController extends Controller
     public function leave(Request $request)
     {
         $group = Group::find($request->get('group_id'));
-        if ($group && $request->user()->id == $request->get('user_id')) {
-            $result = $group->users()->detach($request->get('user_id'));
+        if ($group->user_id != $request->user()->id) {
+            $result = $group->users()->detach($request->user()->id);
             if ($result) {
                 return redirect('groups/'.$group->id)->with('status', 'Leave Group Success!');
             } else {
