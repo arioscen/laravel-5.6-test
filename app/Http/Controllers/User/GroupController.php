@@ -11,7 +11,7 @@ class GroupController extends Controller
 {
     public function index()
     {
-        return view('group')->withGroups(Group::where('user_id', Auth::id())->get());
+        return view('group/index')->withGroups(Group::where('user_id', Auth::id())->get());
     }
     public function create()
     {
@@ -42,8 +42,7 @@ class GroupController extends Controller
             return view('user/group/edit')->withGroup($group);
         } else {
             return redirect()->back()->withInput()->withErrors('You do not have permission to edit this group!');
-        }
-        
+        }        
     }
     public function update(Request $request, $id)
     {
@@ -65,5 +64,9 @@ class GroupController extends Controller
     {
         Group::find($id)->delete();
         return redirect()->back()->withInput()->withErrors('Delete Group Success!');
-    }       
+    }
+    public function show($id)
+    {
+        return view('group/show')->withGroup(Group::with('posts')->find($id));
+    }    
 }

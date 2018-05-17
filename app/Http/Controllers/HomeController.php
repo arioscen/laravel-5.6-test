@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('group')->withGroups(\App\Group::all());
+        // return view('home')->withGroups(\App\Group::all());
+        return redirect('groups');
     }
 }
