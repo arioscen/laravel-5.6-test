@@ -13,10 +13,10 @@
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="card">
-                <a href="{{ url('groups/'.$group->id) }}"><h5 class="card-header">{{ $group->title }}</h5></a>
-                <div class="card-body">
-                    <p class="card-text">{{ $group->description }}</p>
-                </div>
+                    <a href="{{ url('groups/'.$group->id) }}"><h5 class="card-header">{{ $group->title }}</h5></a>
+                    <div class="card-body">
+                        <p class="card-text">{{ $group->description }}</p>
+                    </div>
                 </div>
             </div>
             <div class="col-2 align-self-center">

@@ -87,5 +87,5 @@ class PostController extends Controller
         } else {
             return redirect()->back()->withInput()->withErrors('You do not have permission to delete this post!');
         }
-    }                
+    }   
 }

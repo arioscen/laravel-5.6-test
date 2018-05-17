@@ -76,10 +76,6 @@ class GroupController extends Controller
             return redirect()->back()->withInput()->withErrors('You do not have permission to delete this group!');
         }
     }
-    public function show($id)
-    {
-        return view('group/show')->withGroup(Group::with('posts')->find($id));
-    }
     public function join(Request $request)
     {
         $group = Group::find($request->get('group_id'));

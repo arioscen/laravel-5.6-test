@@ -39,10 +39,10 @@
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="card">
-                <a href="#"><h5 class="card-header">{{ $post->title }}</h5></a>
-                <div class="card-body">
-                    <p class="card-text">{{ $post->content }}</p>
-                </div>
+                    <a href="{{ url('posts/'.$post->id) }}"><h5 class="card-header">{{ $post->title }}</h5></a>
+                    <div class="card-body">
+                        <p class="card-text">{{ $post->content }}</p>
+                    </div>
                 </div>
             </div>
             <div class="col-2 align-self-center">

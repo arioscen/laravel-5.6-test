@@ -21,6 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('groups', 'GroupController');
 
+Route::resource('posts', 'PostController');
+
+Route::resource('comments', 'CommentController');
+
 Route::group(['middleware' => 'auth', 'namespace' => 'User', 'prefix' => 'user'], function() {
     Route::get('/', 'HomeController@index');
     Route::resource('groups', 'GroupController');
