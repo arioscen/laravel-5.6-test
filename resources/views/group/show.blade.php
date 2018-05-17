@@ -43,7 +43,7 @@
             <div class="col-2 align-self-center">
                 @auth
                     @if ($post->user_id == Auth::user()->id)
-                        <a class="btn btn-success" href="{{ url('user/posts/'.$post->id.'/edit') }}" role="button">Edit</a>
+                        <a class="btn btn-success" href="{{ url('user/posts/'.$post->id.'/edit?group_id='.$group->id) }}" role="button">Edit</a>
                         <form action="{{ url('user/posts/'.$post->id) }}" method="POST" style="display: inline;">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}

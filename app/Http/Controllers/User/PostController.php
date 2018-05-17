@@ -20,48 +20,66 @@ class PostController extends Controller
     }
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:32',
-            'content' => 'required',
-            'group_id' => 'required',
-        ]);
-    
-        $post = new Post;
-        $post->title = $request->get('title');
-        $post->content = $request->get('content');
-        $post->group_id = $request->get('group_id');
-        $post->user_id = $request->user()->id;
-    
-        if ($post->save()) {
-            return redirect('groups/'.$post->group_id)->with('status', 'Create Post Success!');
+        if (DB::table('group_user')->whereGroupId($request->get('group_id'))->whereUserId($request->user()->id)->count()) {
+            $this->validate($request, [
+                'title' => 'required|max:32',
+                'content' => 'required',
+                'group_id' => 'required',
+            ]);
+        
+            $post = new Post;
+            $post->title = $request->get('title');
+            $post->content = $request->get('content');
+            $post->group_id = $request->get('group_id');
+            $post->user_id = $request->user()->id;
+        
+            if ($post->save()) {
+                return redirect('groups/'.$post->group_id)->with('status', 'Create Post Success!');
+            } else {
+                return redirect()->back()->withInput()->withErrors('Create Post Failed!');
+            }            
         } else {
-            return redirect()->back()->withInput()->withErrors('Create Post Failed!');
+            return redirect()->back()->withInput()->withErrors('You are not in this group!');
         }
     }
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        return view('user/post/edit')->withPost(Post::find($id));
+        $post = Post::find($id);
+        if ($post->user_id == $request->user()->id) {
+            return view('user/post/edit')->withPost($post);
+        } else {
+            return redirect()->back()->withInput()->withErrors('You do not have permission to edit this post!');
+        }        
     }
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:32',
-            'content' => 'required',
-        ]);
-    
         $post = Post::find($id);
-        $post->title = $request->get('title');
-        $post->content = $request->get('content');
-    
-        if ($post->save()) {
-            return redirect('groups/'.$post->group_id)->with('status', 'Edit Post Success!');
+        if ($post->user_id == $request->user()->id) {
+            $this->validate($request, [
+                'title' => 'required|max:32',
+                'content' => 'required',
+            ]);
+        
+            $post->title = $request->get('title');
+            $post->content = $request->get('content');
+        
+            if ($post->save()) {
+                return redirect('groups/'.$post->group_id)->with('status', 'Edit Post Success!');
+            } else {
+                return redirect()->back()->withInput()->withErrors('Edit Post Failed!');
+            }
         } else {
-            return redirect()->back()->withInput()->withErrors('Edit Post Failed!');
-        }
+            return redirect()->back()->withInput()->withErrors('You do not have permission to edit this post!');
+        }         
     }
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        Post::find($id)->delete();
-        return redirect()->back()->withInput()->withErrors('Post Deleted!');
+        $post = Post::find($id);
+        if ($post->user_id == $request->user()->id) {
+            $post->delete();
+            return redirect()->back()->withInput()->withErrors('Post Deleted!');
+        } else {
+            return redirect()->back()->withInput()->withErrors('You do not have permission to edit this post!');
+        }
     }                
 }
