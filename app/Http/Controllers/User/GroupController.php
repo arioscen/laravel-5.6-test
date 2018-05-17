@@ -48,24 +48,33 @@ class GroupController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|unique:groups,title,'.$id.'|max:32',
-            'description' => 'required',
-        ]);
         $group = Group::find($id);
-        $group->title = $request->get('title');
-        $group->description = $request->get('description'); 
-        
-        if ($group->save()) {
-            return redirect('user/groups')->with('status', 'Edit Group Success!');
+        if ($group->user_id == $request->user()->id) {
+            $this->validate($request, [
+                'title' => 'required|unique:groups,title,'.$id.'|max:32',
+                'description' => 'required',
+            ]);
+            $group->title = $request->get('title');
+            $group->description = $request->get('description'); 
+            
+            if ($group->save()) {
+                return redirect('user/groups')->with('status', 'Edit Group Success!');
+            } else {
+                return redirect()->back()->withInput()->withErrors('Edit Group Failed!');
+            }
         } else {
-            return redirect()->back()->withInput()->withErrors('Edit Group Failed!');
+            return redirect()->back()->withInput()->withErrors('You do not have permission to edit this group!');
         }               
     }
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        Group::find($id)->delete();
-        return redirect()->back()->withInput()->withErrors('Delete Group Success!');
+        $group = Group::find($id);
+        if ($group->user_id == $request->user()->id) {
+            $group->delete();
+            return redirect()->back()->withInput()->withErrors('Delete Group Success!');
+        } else {
+            return redirect()->back()->withInput()->withErrors('You do not have permission to delete this group!');
+        }
     }
     public function show($id)
     {
