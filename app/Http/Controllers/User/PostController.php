@@ -45,7 +45,9 @@ class PostController extends Controller
     public function edit(Request $request, $id)
     {
         $post = Post::find($id);
-        if ($post->user_id == $request->user()->id || DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count()) {
+        $inGroup = DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count();
+        $group = Group::find($post->group_id);
+        if ($inGroup && $post->user_id == $request->user()->id || $group->user_id == $request->user()->id) {
             return view('user/post/edit')->withPost($post);
         } else {
             return redirect()->back()->withInput()->withErrors('You do not have permission to edit this post!');
@@ -54,7 +56,9 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
-        if ($post->user_id == $request->user()->id || DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count()) {
+        $inGroup = DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count();
+        $group = Group::find($post->group_id);        
+        if ($inGroup && $post->user_id == $request->user()->id || $group->user_id == $request->user()->id) {
             $this->validate($request, [
                 'title' => 'required|max:32',
                 'content' => 'required',
@@ -75,7 +79,9 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         $post = Post::find($id);
-        if ($post->user_id == $request->user()->id || DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count()) {
+        $inGroup = DB::table('group_user')->whereGroupId($post->group_id)->whereUserId($request->user()->id)->count();
+        $group = Group::find($post->group_id);        
+        if ($inGroup && $post->user_id == $request->user()->id || $group->user_id == $request->user()->id) {
             $post->delete();
             return redirect()->back()->withInput()->withErrors('Post Deleted!');
         } else {

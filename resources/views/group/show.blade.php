@@ -47,13 +47,15 @@
             </div>
             <div class="col-2 align-self-center">
                 @auth
-                    @if ($post->user_id == Auth::user()->id || $group->user_id == Auth::user()->id)
-                        <a class="btn btn-success" href="{{ url('user/posts/'.$post->id.'/edit') }}" role="button">Edit</a>
-                        <form action="{{ url('user/posts/'.$post->id) }}" method="POST" style="display: inline;">
-                            {{ method_field('DELETE') }}
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>                        
+                    @if (DB::table('group_user')->whereGroupId($group->id)->whereUserId(Auth::user()->id)->count())
+                        @if ($post->user_id == Auth::user()->id || $group->user_id == Auth::user()->id)
+                            <a class="btn btn-success" href="{{ url('user/posts/'.$post->id.'/edit') }}" role="button">Edit</a>
+                            <form action="{{ url('user/posts/'.$post->id) }}" method="POST" style="display: inline;">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>                        
+                        @endif
                     @endif
                 @endauth
             </div>            
