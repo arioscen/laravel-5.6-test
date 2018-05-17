@@ -84,8 +84,18 @@ class GroupController extends Controller
             return redirect()->back()->withInput()->withErrors('You do not have permission!');
         }
     }
-    public function leave($id)
+    public function leave(Request $request)
     {
-        
+        $group = Group::find($request->get('group_id'));
+        if ($group && $request->user()->id == $request->get('user_id')) {
+            $result = $group->users()->detach($request->get('user_id'));
+            if ($result) {
+                return redirect('groups/'.$group->id)->with('status', 'Leave Group Success!');
+            } else {
+                return redirect()->back()->withInput()->withErrors('You already leave this group!');
+            }            
+        } else {
+            return redirect()->back()->withInput()->withErrors('You do not have permission!');
+        }        
     }    
 }

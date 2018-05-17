@@ -25,5 +25,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'User', 'prefix' => 'user']
     Route::get('/', 'HomeController@index');
     Route::resource('groups', 'GroupController');
     Route::post('groups/join', 'GroupController@join');
+    Route::post('groups/leave', 'GroupController@leave');
     Route::resource('posts', 'PostController');
 });
