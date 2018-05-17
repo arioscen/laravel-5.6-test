@@ -6,6 +6,11 @@
             <h1>{{ $group->title }}</h1>
         </div>          
     </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h3>{{ $group->description }}</h3>
+        </div>          
+    </div>    
     <br>
     @auth
         <div class="row justify-content-center">
