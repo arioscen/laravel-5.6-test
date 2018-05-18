@@ -6,7 +6,7 @@
             <div class="card">
                 <h5 class="card-header">{{ $post->title }}</h5>
                 <div class="card-body">
-                    <p class="card-text">{{ $post->content }}</p>
+                    <p class="card-text">{!! nl2br(htmlspecialchars($post->content)) !!}</p>
                 </div>
             </div>
         </div>
@@ -21,8 +21,14 @@
                         {!! csrf_field() !!}
                         <input hidden name="post_id" value="{{ $post->id }}">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            @auth
+                                <input hidden name="name" value="{{ Auth::user()->name }}">
+                                <div>{{ Auth::user()->name }}</div>
+                            @endauth
+                            @guest
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="">
+                            @endguest
                         </div>
                         <div class="form-group">
                             <label for="content">Content</label>
@@ -40,7 +46,7 @@
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="card">
-                    <a href="#"><h5 class="card-header">{{ $comment->name }}</h5></a>
+                    <p class="card-header">{{ $comment->name }}</p>
                     <div class="card-body">
                         <p class="card-text">{{ $comment->content }}</p>
                     </div>
