@@ -23,7 +23,7 @@
                             <button type="submit" class="btn btn-warning">Leave Group</button>
                         </form>
                     @endif
-                    <a class="btn btn-primary" href="{{ url('user/posts/create').'?group_id='.$group->id }}" role="button">Create post</a>     
+                    <a class="btn btn-primary" href="{{ url('user/posts/create').'?group_id='.$group->id }}" role="button">Create Post</a>     
                 @else
                     <form action="{{ url('user/groups/join') }}" method="POST" style="display: inline;">
                         {{ csrf_field() }}

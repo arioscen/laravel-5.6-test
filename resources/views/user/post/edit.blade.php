@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-6">
             <div class="card">
-                <a href="#"><h5 class="card-header">Edit Post</h5></a>
+                <h5 class="card-header">Edit Post</h5>
                 <div class="card-body">
                 <form action="{{ url('user/posts/'.$post->id) }}" method="POST">
                     {{ method_field('PATCH') }}

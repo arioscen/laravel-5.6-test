@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-6">
             <div class="card">
-                <a href="#"><h5 class="card-header">Create Group</h5></a>
+                <h5 class="card-header">Create Group</h5>
                 <div class="card-body">
                 <form action="{{ url('user/groups') }}" method="POST">
                     {!! csrf_field() !!}
