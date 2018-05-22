@@ -67,7 +67,7 @@
             </ul>                      
         </div>
     </nav>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid pt-5">
         <div class="row">
             <div class="col-2"></div>
             <nav class="col-2 d-none d-sm-block navbar-dark bg-secondary position-fixed" style="min-height: 100vh;">
