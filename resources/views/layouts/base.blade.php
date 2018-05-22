@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -67,9 +67,10 @@
             </ul>                      
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid mt-5">
         <div class="row">
-            <nav class="col-2 d-none d-sm-block navbar-dark bg-secondary">
+            <div class="col-2"></div>
+            <nav class="col-2 d-none d-sm-block navbar-dark bg-secondary position-fixed" style="min-height: 100vh;">
                 <ul class="navbar-nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
@@ -99,30 +100,32 @@
                     </li>                    
                 </ul>                
             </nav>
+            
             <main class="col-10 py-4">
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        {!! implode('<br>', $errors->all()) !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>                
+                    </div>
+                    
+                @endif
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>                 
+                    </div>
+                @endif            
                 @yield('content')
             </main>            
         </div>
     </div>
 
 
-    @if (count($errors) > 0)
-        <div class="alert alert-danger alert-dismissible fade show">
-            {!! implode('<br>', $errors->all()) !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>                
-        </div>
-        
-    @endif
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>                 
-        </div>
-    @endif
+
 
 </body>
 </html>

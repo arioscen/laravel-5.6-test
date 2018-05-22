@@ -1,8 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-6">
                 <div class="card">
                     <h5 class="card-header">{{ $post->title }}</h5>
@@ -12,8 +11,7 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="row justify-content-center">
+        <div class="row mt-2">
             <div class="col-4">
                 <div class="card">
                     <div class="card-header">New Comment</div>
@@ -42,9 +40,8 @@
             </div>
             <div class="col-2"></div>
         </div>
-        <br>
         @foreach ($post->comments as $comment)
-            <div class="row justify-content-center">
+            <div class="row mt-2">
                 <div class="col-4">
                     <div class="card">
                         <p class="card-header">{{ $comment->name }}</p>
@@ -54,10 +51,6 @@
                     </div>
                 </div>
                 <div class="col-2"></div>
-            </div>        
-            @if(!$loop->last)
-                <br>
-            @endif        
+            </div>             
         @endforeach
-    </div>
 @endsection
