@@ -41,3 +41,5 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
     $router->post('logout', 'LoginController@logout')->name('admin.logout');
     $router->get('dash', 'DashboardController@index');
 });
+
+Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);

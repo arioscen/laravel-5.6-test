@@ -1,6 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
+    {{ __('this is language test') }}
     @auth
         <div class="row">
             <div class="col-10">

@@ -64,6 +64,20 @@
                         </div>
                     </li>
                 @endguest
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Config::get('languages')[App::getLocale()] }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>                    
+                </li>
             </ul>                      
         </div>
     </nav>
@@ -123,9 +137,5 @@
             </main>            
         </div>
     </div>
-
-
-
-
 </body>
 </html>
