@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    {{ __('this is language test') }}
+    <h3>{{ __('this is language test') }}</h3>
     @auth
         <div class="row">
             <div class="col-10">
