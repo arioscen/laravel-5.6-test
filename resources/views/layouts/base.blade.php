@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -40,6 +40,9 @@
                         <a class="dropdown-item" href="{{ url('user/groups') }}">Groups</a>
                     </div>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('user/files') }}">File</a>
+                </li>                
             </ul>  
             <ul class="navbar-nav ml-auto">
                 @guest

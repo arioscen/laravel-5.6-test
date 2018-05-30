@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'User', 'prefix' => 'user']
     Route::post('groups/join', 'GroupController@join');
     Route::post('groups/leave', 'GroupController@leave');
     Route::resource('posts', 'PostController');
+    Route::resource('files', 'FileController');
+    Route::get('files/download/{id}', 'FileController@download');
 });
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
