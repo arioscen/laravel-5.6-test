@@ -45,3 +45,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
 });
 
 Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+
+Route::post('api/get', 'APIController@get');
+Route::post('api/set', 'APIController@set');
+Route::post('api/add', 'APIController@add');
