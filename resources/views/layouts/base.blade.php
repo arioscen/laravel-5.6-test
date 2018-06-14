@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -29,10 +30,10 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item" v-bind:class="groupObject">
                     <a class="nav-link" href="{{ url('groups') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" v-bind:class="userObject">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User
                     </a>
@@ -40,7 +41,7 @@
                         <a class="dropdown-item" href="{{ url('user/groups') }}">Groups</a>
                     </div>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item" v-bind:class="fileObject">
                     <a class="nav-link" href="{{ url('user/files') }}">File</a>
                 </li>                
             </ul>  
@@ -140,5 +141,21 @@
             </main>            
         </div>
     </div>
+    <script>
+        var vm = new Vue({
+            el: "#navbarSupportedContent",
+            data: {
+                groupObject: {
+                    active: '{{ Request::path() }}' == 'groups' 
+                },
+                userObject: {
+                    active: '{{ Request::path() }}' == 'user/groups' 
+                },                
+                fileObject: {
+                    active: '{{ Request::path() }}' == 'user/files' 
+                },
+            }
+        })
+    </script>
 </body>
 </html>
