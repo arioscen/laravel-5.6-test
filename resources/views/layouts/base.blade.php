@@ -20,10 +20,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- icon -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <style>
+        .sidebar-item:hover {
+            background-color: black;
+        }
+    </style>    
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><a class="navbar-brand" href="#">Arioscen</a></nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Arioscen</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -85,38 +94,30 @@
             </ul>                      
         </div>
     </nav>
-    <div class="container-fluid pt-5">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-2"></div>
-            <nav class="col-2 d-none d-sm-block navbar-dark bg-secondary position-fixed" style="min-height: 100vh;">
+            <div style="width:15%"></div>
+            <nav class="d-none d-sm-block navbar-dark bg-dark position-fixed py-3" style="min-height: 100vh; width:15%">
                 <ul class="navbar-nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+                    <li class="sidebar-item nav-item" data-toggle="collapse" data-target="#test001">
+                        <a class="nav-link ml-3" href="#"><i class="fa fa-fw fa-desktop"></i> Test001</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Reports</a>
+                    <div class="collapse bg-secondary" id="test001">
+                        <li class="nav-item mt-1 ml-5">
+                            <a class="nav-link" href="#">Test001-1</a>
+                            <a class="nav-link" href="#">Test001-2</a>
+                        </li>
+                    </div>
+                    <li class="sidebar-item nav-item" data-toggle="collapse" data-target="#test002">
+                        <a class="nav-link ml-3" href="#"><i class="fa fa-fw fa-desktop"></i> Test002</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Analytics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Export</a>
-                    </li>                    
+                    <div class="collapse bg-secondary" id="test002">
+                        <li class="nav-item mt-1 ml-5">
+                            <a class="nav-link" href="#">Test002-1</a>
+                            <a class="nav-link" href="#">Test002-2</a>
+                        </li>
+                    </div>
                 </ul>
-                <ul class="navbar-nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Analytics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Export</a>
-                    </li>                    
-                </ul>                
             </nav>
             
             <main class="col-10 py-4">
